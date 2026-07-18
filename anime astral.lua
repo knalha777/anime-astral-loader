@@ -44,7 +44,7 @@ if not isAnimeAstral then
     text.TextWrapped = true
     text.Parent = frame
     
-    task.delay(3, function()
+    task.delay(6, function()
         gui:Destroy()
     end)
     
