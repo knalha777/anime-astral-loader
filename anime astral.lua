@@ -14,7 +14,7 @@ local SCRIPT_NAME = "animeastral.lua"
 local placeId = game.PlaceId
 local universeId = game.GameId
 
-local isAnimeAstral = (placeId == 102072869879193 or universeId == 10502841145)
+local isAnimeAstral = (placeId == 10502841145 or universeId == 102072869879193)
 
 if not isAnimeAstral then
     -- Mostra mensagem de erro se não for o jogo certo
