@@ -7,7 +7,7 @@ if not game:IsLoaded() then
 end
 
 -- CONFIGURAÇÕES
-local BASE_URL = "https://raw.githubusercontent.com/SEU_USUARIO/SEU_REPO/refs/heads/main"
+local BASE_URL = "https://raw.githubusercontent.com/knalha777/anime-astral-loader/refs/heads/main/anime%20astral.lua"
 local SCRIPT_NAME = "animeastral.lua"
 
 -- VERIFICA SE É O JOGO CORRETO
