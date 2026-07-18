@@ -1,35 +1,27 @@
--- ============================================
--- LOADER TWVZ - SOMENTE ANIME ASTRAL
--- ============================================
-
 if not game:IsLoaded() then
     game.Loaded:Wait()
 end
 
--- CONFIGURAÇÕES
-local BASE_URL = "https://raw.githubusercontent.com/knalha777/anime-astral-loader/refs/heads/main/anime%20astral.lua"
-local SCRIPT_NAME = "animeastral.lua"
+local BASE_URL = "https://raw.githubusercontent.com/ZhangJunZ84/twvzyyds/refs/heads/main"
 
+local GAMES = {
+    [9186719164]  = "sailorpiece.lua",
+    [6718454990]  = "animeghost.lua",
+    [10032271327] = "worldfighters.lua",
+    [9792947201]  = "slimerng.lua",
+    [7395930870]  = "selllemons.lua",
+    [10502841145] = "animeastral.lua",  -- Place ID correto do Anime Astral Simulator
+}
+
+local gameId = game.GameId
+local scriptFile = GAMES[gameId]
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 local DISCORD_URL = "https://discord.gg/Wk9bHxEuef"
 
--- PLACE IDs ATUALIZADOS DO ANIME ASTRAL
-local VALID_PLACE_IDS = {
-    [9797806474] = true,   -- ID antigo (TWVZ)
-    [102072869879193] = true, -- ID atual (seu jogo)
-}
+if not scriptFile then
+    warn("[TWVZ] Unsupported game (GameId: " .. tostring(gameId) .. ")")
 
-local placeId = game.PlaceId
-local universeId = game.GameId
-
--- VERIFICA SE É O ANIME ASTRAL (por Place ID ou Universe ID)
-local isAnimeAstral = VALID_PLACE_IDS[placeId] or universeId == 10502841145
-
-if not isAnimeAstral then
-    warn("[LOADER] Jogo não suportado! (PlaceId: " .. tostring(placeId) .. ")")
-
-    -- GUI de "Jogo Não Suportado" (igual ao TWVZ)
     local gui = Instance.new("ScreenGui")
     gui.Name = "LoaderBlock"
     gui.ResetOnSpawn = false
@@ -80,7 +72,7 @@ if not isAnimeAstral then
     body.Size = UDim2.new(1, -40, 0, 60)
     body.Position = UDim2.fromOffset(20, 72)
     body.BackgroundTransparency = 1
-    body.Text = "Este loader é exclusivo para Anime Astral Simulator!"
+    body.Text = "TWVZ does not have a script for this game yet, but you can join the discord and suggest it!"
     body.TextColor3 = Color3.fromRGB(180, 180, 190)
     body.TextSize = 15
     body.Font = Enum.Font.Gotham
@@ -115,7 +107,7 @@ if not isAnimeAstral then
     btn.Position = UDim2.new(0, 20, 1, -62)
     btn.BackgroundColor3 = Color3.fromRGB(88, 101, 242)
     btn.BorderSizePixel = 0
-    btn.Text = "Copiar Discord Server Link"
+    btn.Text = "Copy Discord Server Link"
     btn.TextColor3 = Color3.fromRGB(255, 255, 255)
     btn.TextSize = 16
     btn.Font = Enum.Font.GothamBold
@@ -169,17 +161,37 @@ if not isAnimeAstral then
     return
 end
 
--- CARREGA O SCRIPT DO ANIME ASTRAL
-local url = BASE_URL .. "/" .. SCRIPT_NAME
-print("[LOADER] Carregando Anime Astral Simulator...")
+-- ==============================================
+-- CARREGANDO SCRIPT PARA ANIME ASTRAL SIMULATOR
+-- ==============================================
+print("[TWVZ] Anime Astral Simulator detectado! (ID: " .. gameId .. ")")
+print("[TWVZ] Carregando script...")
+
+local url = BASE_URL .. "/" .. scriptFile
+print("[TWVZ] URL: " .. url)
 
 local ok, err = pcall(function()
-    loadstring(game:HttpGet(url))()
+    local content = game:HttpGet(url)
+    if content then
+        print("[TWVZ] Script carregado! Tamanho: " .. #content .. " caracteres")
+        loadstring(content)()
+    end
 end)
 
 if not ok then
-    warn("[LOADER] Falha ao carregar: " .. tostring(err))
-    print("❌ Erro ao carregar o script. Verifique sua conexão.")
-else
-    print("✅ Script carregado com sucesso!")
+    warn("[TWVZ] Failed to load " .. scriptFile .. ": " .. tostring(err))
+    
+    -- Tenta carregar de um backup
+    local backupUrl = "https://raw.githubusercontent.com/ZhangJunZ84/twvzyyds/refs/heads/main/animeastral_backup.lua"
+    local ok2, err2 = pcall(function()
+        local backupContent = game:HttpGet(backupUrl)
+        if backupContent then
+            print("[TWVZ] Carregando script de backup...")
+            loadstring(backupContent)()
+        end
+    end)
+    
+    if not ok2 then
+        warn("[TWVZ] Backup também falhou: " .. tostring(err2))
+    end
 end
