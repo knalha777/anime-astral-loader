@@ -7,14 +7,14 @@ if not game:IsLoaded() then
 end
 
 -- CONFIGURAÇÕES
-local BASE_URL = "https://raw.githubusercontent.com/knalha777/anime-astral-loader/refs/heads/main/anime%20astral.lua"
+local BASE_URL = "https://raw.githubusercontent.com/SEU_USUARIO/SEU_REPO/refs/heads/main"
 local SCRIPT_NAME = "animeastral.lua"
 
 -- VERIFICA SE É O JOGO CORRETO
 local placeId = game.PlaceId
 local universeId = game.GameId
 
-local isAnimeAstral = (placeId == 102072869879193 or universeId == 10502841145)
+local isAnimeAstral = (placeId == 9797806474 or universeId == 102072869879193)
 
 if not isAnimeAstral then
     -- Mostra mensagem de erro se não for o jogo certo
@@ -44,7 +44,7 @@ if not isAnimeAstral then
     text.TextWrapped = true
     text.Parent = frame
     
-    task.delay(6, function()
+    task.delay(3, function()
         gui:Destroy()
     end)
     
