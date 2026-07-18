@@ -7,7 +7,32 @@ if not game:IsLoaded() then
 end
 
 -- CONFIGURAÇÕES
-local BASE_URL = "https://raw.githubusercontent.com/knalha777/anime-astral-loader/refs/heads/main/anime%20astral.lua"
+local BASE_URL = "-- ============================================
+-- LOADER - SEM VERIFICAÇÃO DE PLACE ID
+-- ============================================
+
+if not game:IsLoaded() then
+    game.Loaded:Wait()
+end
+
+-- CONFIGURAÇÕES
+local BASE_URL = "https://raw.githubusercontent.com/knalha777/anime-astral-loader/refs/heads/main"
+local SCRIPT_NAME = "animeastral.lua"
+
+-- CARREGA O SCRIPT DIRETAMENTE (SEM VERIFICAÇÃO)
+local url = BASE_URL .. "/" .. SCRIPT_NAME
+print("[LOADER] Carregando script...")
+
+local success, err = pcall(function()
+    loadstring(game:HttpGet(url))()
+end)
+
+if not success then
+    warn("[LOADER] Erro ao carregar: " .. tostring(err))
+    print("❌ Falha ao carregar o script. Verifique sua conexão.")
+else
+    print("✅ Script carregado com sucesso!")
+end"
 local SCRIPT_NAME = "animeastral.lua"
 
 -- VERIFICA SE É O JOGO CORRETO
