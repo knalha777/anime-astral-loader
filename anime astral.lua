@@ -1,5 +1,5 @@
 -- ============================================
--- LOADER - ANIME ASTRAL SIMULATOR
+-- LOADER - ANIME ASTRAL SIMULATOR (CORRIGIDO)
 -- ============================================
 
 if not game:IsLoaded() then
@@ -7,17 +7,21 @@ if not game:IsLoaded() then
 end
 
 -- CONFIGURAÇÕES
-local BASE_URL = "https://raw.githubusercontent.com/knalha777/anime-astral-loader/refs/heads/main"
+local BASE_URL = "https://raw.githubusercontent.com/SEU_USUARIO/SEU_REPO/refs/heads/main"
 local SCRIPT_NAME = "animeastral.lua"
+
+-- PLACE ID CORRETO DO SEU JOGO
+local CORRECT_PLACE_ID = 102072869879193
+local CORRECT_UNIVERSE_ID = 10502841145
 
 -- VERIFICA SE É O JOGO CORRETO
 local placeId = game.PlaceId
 local universeId = game.GameId
 
-local isAnimeAstral = (placeId == 9797806474 or universeId == 102072869879193)
+local isAnimeAstral = (placeId == CORRECT_PLACE_ID or universeId == CORRECT_UNIVERSE_ID)
 
 if not isAnimeAstral then
-    -- Mostra mensagem de erro se não for o jogo certo
+    -- Mensagem de erro se não for o jogo certo
     local player = game:GetService("Players").LocalPlayer
     local gui = Instance.new("ScreenGui")
     gui.Name = "LoaderError"
@@ -52,16 +56,19 @@ if not isAnimeAstral then
 end
 
 -- CARREGA O SCRIPT
+print("🚀 Carregando Anime Astral Simulator...")
+print("📍 Place ID:", placeId)
+
 local url = BASE_URL .. "/" .. SCRIPT_NAME
-print("[LOADER] Carregando Anime Astral Simulator...")
 
 local success, err = pcall(function()
-    loadstring(game:HttpGet(url))()
+    local content = game:HttpGet(url)
+    loadstring(content)()
 end)
 
-if not success then
-    warn("[LOADER] Erro ao carregar: " .. tostring(err))
-    print("❌ Falha ao carregar o script. Verifique sua conexão.")
-else
+if success then
     print("✅ Script carregado com sucesso!")
+else
+    warn("❌ Erro ao carregar: " .. tostring(err))
+    print("Verifique se o arquivo existe no GitHub.")
 end
